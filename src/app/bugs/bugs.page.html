@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <!-- <ion-menu-button menu="menuGlobal"></ion-menu-button> -->
+          <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        List Bugs
+      </ion-title>
+      <ion-buttons slot="primary">
+        <!-- <ion-button  [routerLink]="['addbugs']"> -->
+          <ion-icon name="add" slot="icon-only" (click)="openModal()"></ion-icon>
+        <!-- </ion-button> -->
+        <!-- <ion-menu-button menu="menuGlobal"></ion-menu-button> -->
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-searchbar placeholder="Search" (ionInput)="searchBugs($event)"></ion-searchbar>
+
+<ion-list>
+    <ng-container *ngFor="let bug of bugs">
+      <ion-item *ngIf="searchText.length===0 || bug.description.toLowerCase().indexOf(searchText)>-1" lines="none">
+      <ion-card lines="none">
+        <ion-item (click)="openEditModal(bug)">
+          <ion-label color="primary">
+            {{ bug.description }}
+          </ion-label>
+          <!-- <ion-icon name="information-circle" size="large" slot="end" [routerLink]="['addbugs',bug.id]"></ion-icon> -->
+          <!-- <ion-icon name="information-circle" size="large" slot="end" (click)="openModal(bug)"></ion-icon> -->
+          <!-- <button ion-button (click)="openModal(bug)">Open Modal</button>           -->
+          <!-- <ion-icon name="create" slot="icon-only" (click)="openModal(bug)" ></ion-icon> -->
+          <ion-icon name="create"  (click)="openEditModal(bug)"></ion-icon>
+        </ion-item>
+
+      <ion-item lines="none">
+        <div>
+        <!-- <ion-text color="primary">
+          <ion-label>
+
+            <ion-buttons>
+              <ion-button>
+            <ion-icon name="information-circle" size="small" slot="end"></ion-icon>
+          </ion-button>
+          </ion-buttons>
+            <!-- <ion-button  fill="outline" shape="round"  [routerLink]="['addbugs',bug.id]"> -->
+              <!-- Edit
+         </ion-button> -->
+        <!-- </ion-label>
+         </ion-text> -->
+        <!-- <br/> -->
+        <p class="italicise">
+          <small>
+              Priority:
+              <font style="color: rgb(182, 175, 175);">
+                  {{bug.priority}}
+              </font>,
+              Area:<font style="color: rgb(182, 175, 175);">{{ bug.area }}</font>,
+              Filed By<font style="color: rgb(182, 175, 175);">
+                {{bug.filedby}}  on  {{ bug.filedat | date }}</font>
+              Solution:<font style="color: rgb(182, 175, 175);">{{bug.solution}}</font>,
+              Fixed By:<font style="color: rgb(182, 175, 175);">{{bug.fixedby}}  on  {{ bug.fixedat | date }}</font>
+          </small>
+        </p>
+      </div>
+      </ion-item>
+      </ion-card>
+    </ion-item>
+      </ng-container>
+</ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button menu="menuGlobal"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+          <ion-icon name="home" routerLink="/home" slot="icon-only"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
